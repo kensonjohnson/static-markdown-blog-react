@@ -31,6 +31,7 @@ export function buildPostsFromMarkdown(): Plugin {
 }
 
 const { parse: parseMDContent } = new Marked(
+  { gfm: true },
   markedHighlight({
     langPrefix: "hljs language-",
     highlight: (code, lang) => {
