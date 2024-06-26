@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en" class="h-full antialiased">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
+    <title>Vite + React + TS</title>
+  </head>
+  <body class="flex h-full min-w-96 bg-zinc-50 dark:bg-black dark:text-white">
+    <div
+      id="root"
+      class="mx-auto flex w-full min-w-80 max-w-7xl flex-col bg-white shadow dark:bg-zinc-800"
+    ></div>
+  </body>
+</html>
