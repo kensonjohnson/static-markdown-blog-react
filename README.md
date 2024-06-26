@@ -16,7 +16,7 @@ It is built with Vite, React, and Tailwind CSS.
 1. Clone the repository
 
 ```bash
-git clone https://github.com/kensonjohnson/markdown-blog-react.git
+git clone https://github.com/kensonjohnson/static-markdown-blog-react.git
 cd markdown-blog-react
 ```
 
