@@ -1,11 +1,7 @@
-import type { Post } from "../posts/posts";
+import { posts } from "../posts/posts";
 import Avatar from "boring-avatars";
 
-type PostListProps = {
-  posts: Post[];
-};
-
-export function PostList({ posts }: PostListProps) {
+export function PostList() {
   return (
     <ul role="list" className="divide-y divide-gray-100 dark:divide-white/5">
       {posts.map((post) => {
