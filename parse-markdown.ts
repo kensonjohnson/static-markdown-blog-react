@@ -13,6 +13,7 @@ export type MetaData = {
   description: string;
   date: Date;
   imageUrl?: string;
+  slug: string;
 };
 
 export function buildPostsFromMarkdown(): Plugin {
@@ -43,16 +44,25 @@ const { parse: parseMDContent } = new Marked(
 
 function createPostsJson(update = false) {
   const markdownFiles = glob.sync("src/posts/content/*.md");
-
+  const slugs = new Set<string>();
   // Parse markdown files
   const posts = markdownFiles
     .map((filePath) => {
       const fileName = filePath.split("/").pop()!;
       const fileContents = readFileSync(filePath, "utf-8");
-      const { metadata, content } = splitMetadataFromMDContent(fileContents);
+      const { metadata, content } = splitMetadataFromMDContent(
+        fileContents,
+      ) as { metadata: MetaData; content: string };
       if (!validateMetadata(metadata, fileName)) {
         logError(`Invalid metadata in ${fileName}, skipping.`);
       }
+
+      if (slugs.has(metadata.slug)) {
+        logError(`Duplicate slug found in ${fileName}, skipping.`);
+        return null;
+      }
+
+      slugs.add(metadata.slug);
 
       if ((metadata as MetaData).published === false) {
         return null;
@@ -95,7 +105,7 @@ function validateMetadata(metadata: unknown, fileName: string) {
     return false;
   }
 
-  const { published, title, description, date, imageUrl } =
+  const { published, title, description, date, imageUrl, slug } =
     metadata as MetaData;
 
   if (!published || typeof published !== "boolean") {
@@ -108,6 +118,11 @@ function validateMetadata(metadata: unknown, fileName: string) {
 
   if (!title || typeof title !== "string") {
     logWarning(["Title is a required field and must be a string"], fileName);
+    return false;
+  }
+
+  if (!slug || typeof slug !== "string") {
+    logWarning(["Slug is a required field and must be a string"], fileName);
     return false;
   }
 
