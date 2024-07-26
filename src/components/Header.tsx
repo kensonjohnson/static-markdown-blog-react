@@ -1,19 +1,20 @@
 import { useState } from "react";
-// import { Dialog, DialogPanel } from "@headlessui/react";
-// import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { Menu, Xmark } from "iconoir-react";
 import { ThemeToggle } from "./ThemeToggle";
 
-const navigation = [
-  { name: "Home", href: "/" },
-  { name: "Blog", href: "#" },
-  { name: "About", href: "#" },
-  { name: "GitHub", href: "#" },
-];
-
-export function Header() {
+export function Header({
+  setSelectedPost,
+}: {
+  setSelectedPost: React.Dispatch<React.SetStateAction<string>>;
+}) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const searchParams = new URLSearchParams(window.location.search);
+  const onHomePage = searchParams.has("slug") === false;
 
+  function resetPostView() {
+    window.history.pushState(null, "", "/");
+    setSelectedPost("home");
+  }
   return (
     <header className="bg-zinc-100 shadow dark:bg-zinc-900">
       <nav
@@ -21,7 +22,7 @@ export function Header() {
         aria-label="Global"
       >
         <div className="flex md:flex-1">
-          <a href="#" className="-m-1.5 p-1.5">
+          <a href="/" className="-m-1.5 p-1.5">
             <h2 className="text-5xl">.md Blog</h2>
           </a>
         </div>
@@ -36,15 +37,14 @@ export function Header() {
           </button>
         </div>
         <div className="hidden md:flex md:gap-x-12">
-          {navigation.map((item) => (
-            <a
-              key={item.name}
-              href={item.href}
-              className="text-sm font-semibold leading-6 text-gray-900 dark:text-white"
+          {!onHomePage && (
+            <button
+              onClick={resetPostView}
+              className="text-lg font-semibold text-gray-900 underline dark:text-white"
             >
-              {item.name}
-            </a>
-          ))}
+              Back to All Posts
+            </button>
+          )}
         </div>
         <div className="hidden md:flex md:flex-1 md:justify-end">
           <ThemeToggle />
@@ -71,15 +71,12 @@ export function Header() {
           <div className="mt-6 flow-root">
             <div className="-my-6 divide-y divide-gray-500/10 dark:divide-gray-500/25">
               <div className="space-y-2 py-6">
-                {navigation.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800"
-                  >
-                    {item.name}
-                  </a>
-                ))}
+                <button
+                  className="text-lg font-semibold text-gray-900 underline dark:text-white"
+                  onClick={resetPostView}
+                >
+                  Back to All Posts
+                </button>
               </div>
             </div>
           </div>
