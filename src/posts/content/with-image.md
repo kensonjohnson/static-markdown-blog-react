@@ -39,11 +39,11 @@ This is an example `of a inline code block`.
 This is an example of a list:
 
 - Item 1
-  - Nested Item 1
-  - Nested Item 2
+  - Nested Item 1, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+  - Nested Item 2, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 - Item 2
-  - Nested Item 1
-    - Deeply Nested Item 1
+  - Nested Item 1, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+    - Deeply Nested Item 1, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 - Item 3
 
 #### Example 4
@@ -51,22 +51,22 @@ This is an example of a list:
 This is an example of a numbered list:
 
 1. Item 1
-   1. Nested Item 1
-   2. Nested Item 2
+   1. Nested Item 1, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+   2. Nested Item 2, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 2. Item 2
-   1. Nested Item 1
-      1. Deeply Nested Item 1
+   1. Nested Item 1, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+      1. Deeply Nested Item 1, Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 3. Item 3
 
 ##### Example 5
 
 This is an example of a table:
 
-| Header 1 | Header 2 | Header 3 |
-| -------- | -------- | -------- |
-| Row 1    | Row 1    | Row 1    |
-| Row 2    | Row 2    | Row 2    |
-| Row 3    | Row 3    | Row 3    |
+| First Header | Second Header                                            | Third Header                                             |
+| ------------ | -------------------------------------------------------- | -------------------------------------------------------- |
+| First Row    | Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
+| Second Row   | Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
+| Third Row    | Lorem ipsum dolor sit amet, consectetur adipiscing elit. | Lorem ipsum dolor sit amet, consectetur adipiscing elit. |
 
 ###### Example 6
 
