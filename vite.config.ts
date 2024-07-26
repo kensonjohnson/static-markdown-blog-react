@@ -9,5 +9,4 @@ export default defineConfig({
       ? "/static-markdown-blog-react/"
       : "/",
   plugins: [react(), buildPostsFromMarkdown()],
-  assetsInclude: ["**/*.md"],
 });
