@@ -3,7 +3,21 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: "class",
   theme: {
-    extend: {},
+    extend: {
+      typeography: {
+        DEFAULT: {
+          css: {
+            "code::before": false,
+            "code::after": false,
+            pre: false,
+            code: false,
+            "pre code": false,
+            "code::before": false,
+            "code::after": false,
+          },
+        },
+      },
+    },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
 };
