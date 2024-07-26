@@ -1,14 +1,17 @@
 import { Header } from "./Header";
 import { Footer } from "./Footer";
-import { Outlet } from "react-router-dom";
 
-export function Layout() {
+export function Layout({
+  setSelectedPost,
+  children,
+}: {
+  setSelectedPost: React.Dispatch<React.SetStateAction<string>>;
+  children: React.ReactNode;
+}) {
   return (
     <>
-      <Header />
-      <main className="overflow-y-scroll">
-        <Outlet />
-      </main>
+      <Header setSelectedPost={setSelectedPost} />
+      <main className="overflow-y-scroll">{children}</main>
       <Footer />
     </>
   );
