@@ -5,10 +5,11 @@ It is built with Vite, React, and Tailwind CSS.
 
 It works by reading the markdown files in the `src/posts/content` directory and generating the blog posts.
 This very simple implementation uses the niave approach of swapping out the content of the page using the `useState` hook.
-There is, currently, no client-side routing or server-side rendering.
+There is no client-side router or server-side rendering.
 
+The secret sauce is all in `parse-markdown.ts`, which is a custom Vite plugin:
 The markdown files are parsed during build time, and again if a HMR update is triggered on the `src/posts/content` directory.
-The parsed markdown is then stored in a JSON file in the `src/posts` directory, which is then imported into the React components.
+The parsed markdown is then stored in a JSON file in the `src/posts` directory, which is then imported into the React components via a helper in `src/posts/posts.ts`.
 
 ## Features
 
@@ -27,7 +28,7 @@ The parsed markdown is then stored in a JSON file in the `src/posts` directory, 
 - [marked](https://www.npmjs.com/package/marked)
 - [highlight.js](https://highlightjs.org/)
 
-## Usage
+## Quick Start
 
 1. Clone the repository
 
@@ -50,6 +51,8 @@ title: My First Post
 date: 2021-08-01
 description: This is my first post.
 published: true
+slug: my-first-post
+imageUrl: /path/to/image.jpg
 ---
 
 # My First Post
@@ -65,6 +68,31 @@ npm run dev
 
 5. Open the browser and go to `http://localhost:5173`
 
+## Usage
+
+To create a new blog post, create a new markdown file in the `src/posts/content` directory.
+The markdown file should have the following header format:
+
+```plaintext
+---
+title: My First Post
+date: 2021-08-01
+description: This is my first post.
+published: true
+slug: my-first-post
+imageUrl: /path/to/image.jpg
+---
+```
+
+- `title`: The title of the blog post
+- `date`: The date of the blog post
+- `description`: A short description of the blog post
+- `published`: Whether the blog post is published or not
+- `slug`: The slug of the blog post
+- `imageUrl`: (Optional) The URL of the image to display with the blog post
+
+After the header, you can write the content of the blog post in markdown format.
+
 ## Build
 
 To build the project, run the following command:
@@ -73,7 +101,7 @@ To build the project, run the following command:
 npm run build
 ```
 
-The build artifacts will be in the `dist` directory.
+The build artifact will be the `dist` directory.
 
 ## Deployment
 
