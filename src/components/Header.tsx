@@ -5,7 +5,7 @@ import { Menu, Xmark } from "iconoir-react";
 import { ThemeToggle } from "./ThemeToggle";
 
 const navigation = [
-  { name: "Home", href: "#" },
+  { name: "Home", href: "/" },
   { name: "Blog", href: "#" },
   { name: "About", href: "#" },
   { name: "GitHub", href: "#" },

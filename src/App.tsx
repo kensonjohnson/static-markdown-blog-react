@@ -1,15 +1,25 @@
-import { Footer } from "./components/Footer";
-import { Header } from "./components/Header";
-import { MainContainer } from "./components/MainContainer";
+import { Layout } from "./components/Layout";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { PostList } from "./components/PostList";
+import { type Post, posts } from "./posts/posts";
+import { ViewPost } from "./components/Post";
 
-export default function App() {
-  return (
-    <>
-      <Header />
-      <main className="flex w-full flex-col px-4">
-        <MainContainer />
-      </main>
-      <Footer />
-    </>
-  );
+export const routes: RouteObject[] = [
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      { index: true, element: <PostList /> },
+      ...posts.map(buildRoute),
+    ],
+  },
+];
+
+export const router = createBrowserRouter(routes);
+
+function buildRoute(post: Post): RouteObject {
+  return {
+    path: post.metadata.slug,
+    element: <ViewPost post={post} />,
+  };
 }
