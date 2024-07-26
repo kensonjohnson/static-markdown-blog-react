@@ -1,25 +1,38 @@
 import { Layout } from "./components/Layout";
-import { createBrowserRouter, RouteObject } from "react-router-dom";
 import { PostList } from "./components/PostList";
-import { type Post, posts } from "./posts/posts";
+import { posts } from "./posts/posts";
 import { ViewPost } from "./components/Post";
+import React, { useEffect, useRef, useState } from "react";
 
-export const routes: RouteObject[] = [
-  {
-    path: "/",
-    element: <Layout />,
-    children: [
-      { index: true, element: <PostList /> },
-      ...posts.map(buildRoute),
-    ],
-  },
-];
+export function App() {
+  const [selectedPost, setSelectedPost] = useState("home");
+  const postList = useRef<Record<string, React.ReactNode>>({
+    home: <PostList posts={posts} onSelect={onSelect} />,
+    ...posts.reduce(
+      (acc, post) => {
+        acc[post.metadata.slug] = <ViewPost post={post} />;
+        return acc;
+      },
+      {} as Record<string, React.ReactNode>,
+    ),
+  });
 
-export const router = createBrowserRouter(routes);
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    const slug = searchParams.get("slug");
+    if (slug) {
+      setSelectedPost(slug);
+    }
+  }, []);
 
-function buildRoute(post: Post): RouteObject {
-  return {
-    path: post.metadata.slug,
-    element: <ViewPost post={post} />,
-  };
+  function onSelect(id: string) {
+    setSelectedPost(id);
+    window.history.pushState(null, "", `?slug=${id}`);
+  }
+
+  return (
+    <Layout setSelectedPost={setSelectedPost}>
+      {postList.current[selectedPost]}
+    </Layout>
+  );
 }
